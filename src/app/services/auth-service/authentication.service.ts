@@ -7,6 +7,15 @@ export interface LoginForm {
   password: string;
 }
 
+export interface User {
+  name?: string;
+  username?: string;
+  email?: string;
+  password?: string;
+  role?: string;
+  // passwordConfirm?: string;
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -26,5 +35,11 @@ export class AuthenticationService {
           return token;
         })
       );
+  }
+
+  register(user: User) {
+    return this.http.post<any>('/api/users', user).pipe(
+      map(user => user)
+    );
   }
 }
